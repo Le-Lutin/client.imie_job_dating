@@ -239,7 +239,7 @@
 }
 
 .card form {
-  padding: 3.5rem 4rem;
+  padding: 2.4rem 3.6rem;
 }
 
 .card form .title-login {
