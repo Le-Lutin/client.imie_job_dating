@@ -24,7 +24,7 @@ import {
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
-Vue.prototype.$http = api,
+Vue.prototype.$http = api
 
 Vue.use(Vuetify, {
   components: {
@@ -52,8 +52,9 @@ Vue.use(Vuetify, {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FFC107',
-    blue: '#222F3F'
-  },
+    blue: '#222F3F',
+    input: '#797979'
+  }
 })
 
 Vue.config.productionTip = false

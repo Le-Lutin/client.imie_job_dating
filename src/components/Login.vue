@@ -7,14 +7,23 @@
         <v-form v-model="valid">
           <v-text-field
             class="label-login"
-            label="E-mail"
+            label="Enter your e-mail"
             solo
             required
           ></v-text-field>
           <v-text-field
-            class="label-login"
-            label="Password"
+            name="passwordConnexion"
+            label="Enter your password"
+            hint="At least 8 characters"
+            min="8"
+            v-model="passwordConnexion"
+            :rules="passwordRules"
+            :append-icon="e3 ? 'visibility_off' : 'visibility'"
+            :append-icon-cb="() => (e3 = !e3)"
+            class="input-group--focused"
+            :type="e3 ? 'text' : 'password'"
             solo
+            color="input" 
             required
           ></v-text-field>
           <div class="wrapper-btn">
@@ -32,12 +41,14 @@
               <v-text-field
                 label="Name"
                 v-model="name"
+                :rules="nameRules"
                 solo
                 required
               ></v-text-field>
               <v-text-field
                 label="Surname"
                 v-model="surname"
+                :rules="surnameRules"
                 solo
                 required
               ></v-text-field>
@@ -50,16 +61,22 @@
                 required
               ></v-text-field>
               <v-text-field
-                class="label-login"
+                name="passwordRegistration"
                 label="Password"
-                v-model="password"
+                hint="At least 8 characters"
+                min="8"
+                v-model="passwordRegistration"
                 :rules="passwordRules"
+                :append-icon="e3 ? 'visibility_off' : 'visibility'"
+                :append-icon-cb="() => (e3 = !e3)"
+                class="input-group--focused"
+                :type="e3 ? 'text' : 'password'"
                 solo
-                required
+                color="input" 
               ></v-text-field>
               <div class="wrapper-btn">
-                <v-btn @click="submit">submit</v-btn>
-                <v-btn @click="clear">clear</v-btn>
+                <v-btn @click="submit" color="success">submit</v-btn>
+                <v-btn @click="clear" color="accent">clear</v-btn>
               </div>
             </v-form>
           </v-card>
@@ -73,24 +90,24 @@
   export default {
     data: () => ({
       valid: true,
-      password: '',
       name: '',
       surname: '',
-      passwordRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length <= 12) || 'Password must be less than 12 characters'
-      ],
+      e3: false,
+      passwordRegistration: '',
+      passwordConnexion: '',
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4'
+      nameRules: [
+        v => !!v || 'name is required',
+      ],
+      surnameRules: [
+        v => !!v || 'surname is required',
+      ],
+      passwordRules: [
+        v => !!v || 'password is required',
       ],
       checkbox: false,
       dialog: false,
@@ -137,6 +154,11 @@
 
 <style scoped>
 
+@keyframes translate {
+  0% { opacity: 0; transform: translateY(80%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .container-login {
   position: relative;
 
@@ -177,6 +199,9 @@
 
 .container-form {
   z-index: 2;
+
+  animation: translate 1.2s ease;
+  transition: all .2s ease;
 }
 
 .btn__content {
