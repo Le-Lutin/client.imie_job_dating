@@ -110,8 +110,10 @@
             surname: this.surname,
             email: this.email,
             password: this.password
-          }).then(() => {
-              this.fetchUsers()
+          }).then(Response => {
+              console.log(Response);
+              //redirect with choice/{Response.data.insertId}
+              this.$router.push('/choice/'+Response.data.insertId+'')
             })
             .then(() => {
               this.dialog = false
