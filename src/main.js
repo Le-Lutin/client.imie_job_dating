@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import { api } from './api'
 import {
   Vuetify,
   VApp,
@@ -15,9 +16,15 @@ import {
   VToolbar,
   transitions,
   VForm,
-  VTextField
+  VTextField,
+  VDialog,
+  VCard,
+  VSelect,
+  VCheckbox
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
+
+Vue.prototype.$http = api,
 
 Vue.use(Vuetify, {
   components: {
@@ -31,17 +38,22 @@ Vue.use(Vuetify, {
     VToolbar,
     transitions,
     VForm,
-    VTextField
+    VTextField,
+    VDialog,
+    VCard,
+    VSelect,
+    VCheckbox
   },
   theme: {
-    primary: '#ee44aa',
-    secondary: '#424242',
+    primary: '#fff',
+    secondary: '#fff',
     accent: '#82B1FF',
     error: '#FF5252',
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFC107'
-  }
+    warning: '#FFC107',
+    blue: '#222F3F'
+  },
 })
 
 Vue.config.productionTip = false

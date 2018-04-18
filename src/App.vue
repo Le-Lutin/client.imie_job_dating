@@ -23,6 +23,7 @@ export default {
       title: 'Vuetify.js'
     }
   },
+
   name: 'App'
 }
 </script>
