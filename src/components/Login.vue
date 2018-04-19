@@ -6,10 +6,12 @@
         <h2 class="title-login">It's time to find a job !</h2>
         <v-form v-model="valid">
           <v-text-field
+            name="emailConnexion"
             class="label-login"
             label="Enter your e-mail"
             solo
             required
+            v-model="emailConnexion"
           ></v-text-field>
           <v-text-field
             name="passwordConnexion"
@@ -27,7 +29,7 @@
             required
           ></v-text-field>
           <div class="wrapper-btn">
-            <v-btn>
+            <v-btn @click="login">
               sign in
             </v-btn>
             <span class="or">or</span>
@@ -96,6 +98,7 @@
       passwordRegistration: '',
       passwordConnexion: '',
       email: '',
+      emailConnexion: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -115,7 +118,7 @@
     }),
 
     created () {
-      this.fetchUsers()
+      // this.fetchUsers()
     },
 
     methods: {
@@ -147,6 +150,25 @@
 
       clear () {
         this.$refs.form.reset()
+      },
+      login (){
+        console.log(this.emailConnexion)
+        let self=this
+        this.$http.post('/login',{
+          email: this.emailConnexion,
+          password: this.passwordConnexion
+        }).then(res =>{
+          console.log(res)
+          if(res.status === 200 && 'id_user' in res.data[0]){
+            console.log(this)
+            self.$session.start()
+            self.$session.set('id_user', res.data[0].id_user)
+            console.log(self.$session.get('id_user'))
+            this.$router.push('/home')            
+          }
+        },error=>{
+          console.log('error',error)
+        })
       }
     }
   }

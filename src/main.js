@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { api } from './api'
+import VueSession from 'vue-session'
 import {
   Vuetify,
   VApp,
@@ -54,8 +55,10 @@ Vue.use(Vuetify, {
     warning: '#FFC107',
     blue: '#222F3F',
     input: '#797979'
-  }
+  },
 })
+
+Vue.use(VueSession)
 
 Vue.config.productionTip = false
 
