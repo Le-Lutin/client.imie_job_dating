@@ -1,39 +1,10 @@
 <template>
-  <v-container fluid>
+      <v-container fluid>
     <div class="container-login">
       <div class="bg-style"></div>
       <div class="container-form">
-        <h2 class="title-login">Who are you ?</h2>
         <div class="container-card">
-          <v-layout>
-            <v-card width="280px">
-              <v-card class="card-content" color="blue" height="160px">
-                <v-icon color="primary" size="80px">face</v-icon>
-              </v-card>
-              <v-card-title primary-title>
-                <div>
-                  <h3 class="headline mb-0">Candidate</h3>
-                  <div>You want find an business ? It's your time, consult offers and contact recruiter. Good luck man !</div>
-                  <v-btn color="success" @click="submitUserCandidate">Choose</v-btn>
-                </div>
-              </v-card-title>
-            </v-card>
-          </v-layout>
-          <v-layout>
-            <v-card width="280px">
-              <v-card class="card-content" color="blue" height="160px">
-                <v-icon color="primary" size="80px">work</v-icon>
-              </v-card>
-              <v-card-title primary-title>
-                <div>
-                  <h3 class="headline mb-0">Recruiter</h3>
-                  <div>You want to find your nugget ? Write an offer and consult candidate and contact them. Good luck man !</div>
-                  <v-btn color="success" @click="redirectRecruiter">Choose</v-btn>
-                </div>
-              </v-card-title>
-            </v-card>
-          </v-layout>
-          <v-dialog v-model="dialog" max-width="360" light color="blue">
+          <v-dialog max-width="360" light color="blue">
             <v-card color="blue">
               <v-card-title class="headline">You are recruiter ? So, choose your business !</v-card-title>
               <v-select
@@ -57,11 +28,12 @@
   </v-container>
 </template>
 
+
 <script>
-  export default {
+export default {
     data () {
       return {
-        dialog: false,
+        dialog: true,
         valid: true,
         businessModel: '',
         businessRules: [
@@ -70,33 +42,11 @@
         business: []
       }
     },
-
-    created () {
-      this.fetchBusiness()
-    },
-    
-    methods: {
-      fetchBusiness () {
-        this.$http.get('/business').then(res => {
-          this.business = res.data
-        }).catch(console.error)
-      },
-
-      submitUserCandidate () {
-        this.$http.post(this.$route.path).then(res => {
-          this.$router.push('/')
-        }).catch(console.error)
-      },
-
-      redirectRecruiter () {
-        let id = this.$route.path.slice(8)
-        this.$router.push('/choose-recruiter/'+id+'')
-      }
-    }
-  }
+}
 </script>
 
-<style scoped>
+
+<style>
 .container-login {
   position: relative;
 

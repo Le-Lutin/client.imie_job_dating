@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Choice from '@/components/Choice'
+import ChooseRecruiter from '@/components/ChooseRecruiter'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path:'/choice/:id',
       name:'Choice',
       component: Choice
+    },
+    {
+      path:'/choose-recruiter/:id',
+      name:'ChooseRecruiter',
+      component: ChooseRecruiter
     }
   ]
 })

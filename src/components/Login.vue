@@ -126,7 +126,7 @@
             name: this.name,
             surname: this.surname,
             email: this.email,
-            password: this.password
+            password: this.passwordRegistration
           }).then(Response => {
               console.log(Response);
               //redirect with choice/{Response.data.insertId}
