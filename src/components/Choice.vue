@@ -58,34 +58,12 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        dialog: false,
-        valid: true,
-        businessModel: '',
-        businessRules: [
-          v => !!v || 'business is required',
-        ],
-        business: []
-      }
-    },
-
-    created () {
-      this.fetchBusiness()
-    },
-    
+  export default {  
     methods: {
-      fetchBusiness () {
-        this.$http.get('/business').then(res => {
-          this.business = res.data
-        }).catch(console.error)
-      },
-
       submitUserCandidate () {
-        this.$http.post(this.$route.path).then(res => {
-          this.$router.push('/')
-        }).catch(console.error)
+          this.$http.post(this.$route.path).then(res => {
+              this.$router.push('/')
+          }).catch(console.error)
       },
 
       redirectRecruiter () {

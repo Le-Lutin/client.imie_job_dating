@@ -1,10 +1,10 @@
 <template>
-      <v-container fluid>
+    <v-container fluid>
     <div class="container-login">
       <div class="bg-style"></div>
       <div class="container-form">
         <div class="container-card">
-          <v-dialog max-width="360" light color="blue">
+          <v-dialog v-model="dialog" max-width="360" light color="blue" persistent>
             <v-card color="blue">
               <v-card-title class="headline">You are recruiter ? So, choose your business !</v-card-title>
               <v-select
@@ -18,7 +18,7 @@
               ></v-select>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="success">finished</v-btn>
+                <v-btn color="success" @click="submitUserRecruiter">finished</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -42,6 +42,27 @@ export default {
         business: []
       }
     },
+
+    created () {
+      this.fetchBusiness()
+    },
+
+    methods: {
+        fetchBusiness () {
+            this.$http.get('/business').then(res => {
+            this.business = res.data
+            }).catch(console.error)
+        },
+
+        submitUserRecruiter () {
+            this.$http.post(this.$route.path, {
+                id_user: this.$route.path.slice(18),
+                id_business: this.businessModel
+            }).then(res => {
+                this.$router.push('/')
+            }).catch(console.error)
+        }
+    }
 }
 </script>
 
