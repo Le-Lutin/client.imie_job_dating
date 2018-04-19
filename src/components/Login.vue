@@ -75,7 +75,7 @@
                 color="input" 
               ></v-text-field>
               <div class="wrapper-btn">
-                <v-btn @click="submit" color="success">submit</v-btn>
+                <v-btn @click="submit" color="success">sign up</v-btn>
                 <v-btn @click="clear" color="accent">clear</v-btn>
               </div>
             </v-form>
