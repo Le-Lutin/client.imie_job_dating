@@ -1,9 +1,21 @@
 <template>
-  <v-app>
-    <v-content>
-      <router-view/>
-    </v-content>
-  </v-app>
+  <v-app >
+  <v-toolbar dark app color="blue">
+    <v-toolbar-title>Imie Job-Dating</v-toolbar-title>
+     <v-spacer></v-spacer>
+    <v-toolbar-items v-if="isSession()" class="hidden-sm-and-down">
+      <v-btn flat @click="toOffer()">Offers</v-btn>
+      <v-btn flat>Link Two</v-btn>
+      <v-btn flat @click="disconnect">Déconnexion</v-btn>
+    </v-toolbar-items>
+  </v-toolbar>
+  <v-content>
+    <v-container fluid>
+      <router-view></router-view>
+    </v-container>
+  </v-content>
+  <v-footer app></v-footer>
+</v-app>
 </template>
 
 <script>
@@ -20,7 +32,20 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Vuetify.js',
+    }
+  },
+  methods:{
+    isSession(){
+      let sessionLive
+      return  sessionLive= this.$session.exists()
+    },
+    disconnect(){
+      this.$session.destroy()
+      this.$router.push('/')
+    },
+    toOffer(){
+      this.$router.push('/offer')
     }
   },
 

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Choice from '@/components/Choice'
 import Home from '@/components/Home'
+import Offer from '@/components/Offer'
 import ChooseRecruiter from '@/components/ChooseRecruiter'
 
 Vue.use(Router)
@@ -28,6 +29,11 @@ export default new Router({
       path:'/home',
       name:'Home',
       component:Home
+    },
+    {
+      path:'/offer',
+      name:'Offer',
+      component:Offer
     }
   ]
 })

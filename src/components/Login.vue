@@ -163,7 +163,8 @@
             console.log(this)
             self.$session.start()
             self.$session.set('id_user', res.data[0].id_user)
-            console.log(self.$session.get('id_user'))
+            self.$session.set('name',res.data[0].name)
+            console.log(self.$session.getAll())
             this.$router.push('/home')            
           }
         },error=>{
