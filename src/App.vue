@@ -4,9 +4,9 @@
     <v-toolbar-title>Imie Job-Dating</v-toolbar-title>
      <v-spacer></v-spacer>
     <v-toolbar-items v-if="isSession()" class="hidden-sm-and-down">
-      <v-btn flat @click="toOffer()">Offers</v-btn>
-      <v-btn flat>Link Two</v-btn>
-      <v-btn flat @click="disconnect">Déconnexion</v-btn>
+      <v-btn flat @click="toOffer()"><v-icon>local_offer</v-icon></v-btn>
+      <v-btn flat @click="toProfile()"><v-icon>person</v-icon></v-btn>
+      <v-btn flat @click="disconnect"><v-icon>exit_to_app</v-icon></v-btn>
     </v-toolbar-items>
   </v-toolbar>
   <v-content>
@@ -46,6 +46,9 @@ export default {
     },
     toOffer(){
       this.$router.push('/offer')
+    },
+    toProfile() {
+      this.$router.push('/profile')
     }
   },
 

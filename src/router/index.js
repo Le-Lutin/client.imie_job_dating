@@ -5,6 +5,7 @@ import Choice from '@/components/Choice'
 import Home from '@/components/Home'
 import Offer from '@/components/Offer'
 import ChooseRecruiter from '@/components/ChooseRecruiter'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path:'/offer',
       name:'Offer',
       component:Offer
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     }
   ]
 })

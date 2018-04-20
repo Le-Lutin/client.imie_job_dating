@@ -2,11 +2,23 @@
       <v-container fluid>
     <div class="container-login">
       <div class="bg-style"></div>
+      <h1>{{ name }}</h1>
     </div>
   </v-container>
 </template>
 
-<script></script>
+<script>
+export default {
+    data: () => ({
+        name: ''
+    }),
+
+    created() {
+        this.name = this.$session.getAll().name
+        console.log(this.$session.getAll())
+    }
+}
+</script>
 
 <style>
 .container-login {
