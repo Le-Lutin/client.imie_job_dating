@@ -152,23 +152,46 @@
         this.$refs.form.reset()
       },
       login (){
-        console.log(this.emailConnexion)
         let self=this
         this.$http.post('/login',{
           email: this.emailConnexion,
           password: this.passwordConnexion
         }).then(res =>{
-          console.log(res)
           if(res.status === 200 && 'id_user' in res.data[0]){
             console.log(this)
             self.$session.start()
             self.$session.set('id_user', res.data[0].id_user)
             self.$session.set('name',res.data[0].name)
-            console.log(self.$session.getAll())
-            this.$router.push('/home')            
           }
         },error=>{
           console.log('error',error)
+        }).then(()=>{
+          this.$http.get('/admin/'+self.$session.get('id_user')).then(res =>{
+            if (res.data.length>0){
+              self.$session.set('id_admin', res.data[0].id_admin)
+              console.log(self.$session.getAll())
+            }
+          },error=>{
+            console.log(error)
+          })
+        }).then(()=>{
+          this.$http.get('/candidate/'+self.$session.get('id_user')).then(res =>{
+            if (res.data.length>0){
+              self.$session.set('id_candidate', res.data[0].id_candidate)
+              console.log(self.$session.getAll())
+            }
+          })
+        }).then(()=>{
+          this.$http.get('/recruiter/'+self.$session.get('id_user')).then(res =>{
+            if (res.data.length>0){
+              self.$session.set('id_recruiter', res.data[0].id_recruiter)
+              console.log(self.$session.getAll())
+            }
+          })
+        }).then(()=>{
+          this.$router.push('/home')
+        }).catch(error=>{
+          console.log(error)
         })
       }
     }
