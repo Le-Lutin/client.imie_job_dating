@@ -4,12 +4,13 @@
       <div class="bg-style"></div>
       <div class="container-form">
         <h2 class="title-login">It's time to find a job !</h2>
-        <v-form v-model="valid">
+        <v-form v-model="valid" ref="formConnection">
           <v-text-field
             name="emailConnexion"
             class="label-login"
             label="Enter your e-mail"
             solo
+            :rules="emailRules"
             required
             v-model="emailConnexion"
           ></v-text-field>
@@ -153,46 +154,50 @@
       },
       login (){
         let self=this
-        this.$http.post('/login',{
-          email: this.emailConnexion,
-          password: this.passwordConnexion
-        }).then(res =>{
-          if(res.status === 200 && 'id_user' in res.data[0]){
-            console.log(this)
-            self.$session.start()
-            self.$session.set('id_user', res.data[0].id_user)
-            self.$session.set('name',res.data[0].name)
-          }
-        },error=>{
-          console.log('error',error)
-        }).then(()=>{
-          this.$http.get('/admin/'+self.$session.get('id_user')).then(res =>{
-            if (res.data.length>0){
-              self.$session.set('id_admin', res.data[0].id_admin)
-              console.log(self.$session.getAll())
+        if (this.$refs.formConnection.validate()) {
+          // Native form submission is not yet supported
+          this.$http.post('/login',{
+            email: this.emailConnexion,
+            password: this.passwordConnexion
+          }).then(res =>{
+            if(res.status === 200 && 'id_user' in res.data[0]){
+              console.log(this)
+              self.$session.start()
+              self.$session.set('id_user', res.data[0].id_user)
+              self.$session.set('name',res.data[0].name)
             }
           },error=>{
+            console.log('error',error)
+          }).then(()=>{
+            this.$http.get('/admin/'+self.$session.get('id_user')).then(res =>{
+              if (res.data.length>0){
+                self.$session.set('id_admin', res.data[0].id_admin)
+                console.log(self.$session.getAll())
+              }
+            },error=>{
+              console.log(error)
+            })
+          }).then(()=>{
+            this.$http.get('/candidate/'+self.$session.get('id_user')).then(res =>{
+              if (res.data.length>0){
+                self.$session.set('id_candidate', res.data[0].id_candidate)
+                console.log(self.$session.getAll())
+              }
+            })
+          }).then(()=>{
+            this.$http.get('/recruiter/'+self.$session.get('id_user')).then(res =>{
+              if (res.data.length>0){
+                self.$session.set('id_recruiter', res.data[0].id_recruiter)
+                console.log(self.$session.getAll())
+              }
+            })
+          }).then(()=>{
+            this.$router.push('/home')
+          }).catch(error=>{
             console.log(error)
+            this.$router.push('/')
           })
-        }).then(()=>{
-          this.$http.get('/candidate/'+self.$session.get('id_user')).then(res =>{
-            if (res.data.length>0){
-              self.$session.set('id_candidate', res.data[0].id_candidate)
-              console.log(self.$session.getAll())
-            }
-          })
-        }).then(()=>{
-          this.$http.get('/recruiter/'+self.$session.get('id_user')).then(res =>{
-            if (res.data.length>0){
-              self.$session.set('id_recruiter', res.data[0].id_recruiter)
-              console.log(self.$session.getAll())
-            }
-          })
-        }).then(()=>{
-          this.$router.push('/home')
-        }).catch(error=>{
-          console.log(error)
-        })
+        }
       }
     }
   }

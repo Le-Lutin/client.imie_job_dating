@@ -34,6 +34,11 @@ export default {
       title: 'Vuetify.js',
     }
   },
+
+  created() {
+    this.unconnectedFallback()
+  },
+
   methods:{
     isSession(){
       let sessionLive
@@ -48,6 +53,14 @@ export default {
     },
     toProfile() {
       this.$router.push('/profile')
+    },
+    noConnect() {
+      this.$router.push('/')
+    },
+    unconnectedFallback () {
+      if(this.$route.path !== "/" && !this.$session.exists()){
+        this.$router.push('/')
+      }
     }
   },
 

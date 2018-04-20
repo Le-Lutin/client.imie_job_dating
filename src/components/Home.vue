@@ -6,7 +6,21 @@
   </v-container>
 </template>
 
-<script></script>
+<script>
+export default {
+  created() {
+    this.unconnectedFallback()
+  },
+
+  methods: {
+    unconnectedFallback () {
+      if(this.$route.path !== "/" && !this.$session.exists()){
+        this.$router.push('/')
+      }
+    }
+  }
+}
+</script>
 
 <style>
 .container-login {
