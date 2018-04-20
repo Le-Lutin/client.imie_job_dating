@@ -4,11 +4,13 @@
       <div class="bg-style">
           <v-card>
         <v-list>
-          <v-list-tile avatar v-for="offer in offers" :key="offer.id_offer" @click="seeOfferCandidates(offer.id_offer)">
-            <v-list-tile-action>
-            </v-list-tile-action>
+          <v-list-tile avatar v-for="candidate in candidates" :key="candidate.id_candidate" >
             <v-list-tile-content>
-              <v-list-tile-title v-text="offer.name"></v-list-tile-title>
+                  <div class="candidate-tile">
+                      <div class="candidate-component">{{candidate.id_candidate}}</div>
+                      <div class="candidate-component">{{candidate.name}} {{candidate.surname}}</div>
+                      <div class="candidate-component">{{candidate.skill_connus}}/{{candidate.skill_demandés}} compétences</div>
+                  </div>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -23,27 +25,35 @@
 export default {
     data () {
       return {
-        offers:[]
+        candidates:[]
       }
     },
     methods:{
-        fetchOffers(){
-            this.$http.get('/offer').then(res=>{
-                this.offers=res.data
+        fetchOfferCandidates(){
+            this.$http.get('/offer-candidates/'+this.$route.path.slice(18)+'').then(res=>{
+                this.candidates = res.data
             }).catch(console.error)
-        },
-        seeOfferCandidates(id){
-            this.$router.push('/offer-candidates/'+id+'')
         }
     },
     created(){
-        this.fetchOffers()
+        this.fetchOfferCandidates()
     }
 }
 </script>
 
 
 <style>
+.candidate-tile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+}
+.candidate-component{
+    width:33%;
+    text-align: center;
+}
+
 .container-login {
   position: relative;
 
